@@ -33,7 +33,7 @@ const form = {
 }
 
 const isEdit = computed(() => {
-  return project != null;
+  return props.project != null;
 })
 
 function goBack() {
@@ -42,7 +42,7 @@ function goBack() {
 </script>
 
 <template>
-    <Form v-slot="{ errors, processing }" @success="goBack" class="rounded border p-4">
+    <Form v-bind="props.form" v-slot="{ errors, processing }" @success="goBack" class="rounded border p-4">
         <div class="flex items-center justify-between mb-3">
             <h2 class="text-lg font-medium">{{ isEdit ? "Editar projeto" : "Criar projeto" }}</h2>
         </div>
