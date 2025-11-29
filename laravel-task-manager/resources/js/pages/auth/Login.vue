@@ -71,16 +71,9 @@ defineProps<{
                     <InputError :message="errors.password" />
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" :tabindex="3" />
-                        <span>Lembre de mim</span>
-                    </Label>
-                </div>
-
                 <Button
                     type="submit"
-                    class="mt-4 w-full"
+                    class="mt-4 w-full cursor-pointer"
                     :tabindex="4"
                     :disabled="processing"
                     data-test="login-button"
