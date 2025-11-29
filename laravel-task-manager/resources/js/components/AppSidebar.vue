@@ -11,7 +11,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, projects } from '@/routes';
+import { dashboard } from '@/routes';
+import projectsRoutes from '@/routes/projects';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookCheck, LayoutGrid } from 'lucide-vue-next';
@@ -25,7 +26,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Projetos',
-        href: projects(),
+        href: projectsRoutes.index(),
         icon: BookCheck,
     },
 ];

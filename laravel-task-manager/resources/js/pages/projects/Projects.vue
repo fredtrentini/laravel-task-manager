@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { projects as projectsRoute } from '@/routes';
+import projectsRoutes from '@/routes/projects';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
+import { Button } from '@/components/ui/button';
+import { ref } from 'vue';
+import ProjectsCreate from './ProjectsCreate.vue';
 
 const props = defineProps<{
     projects: Array<{
@@ -15,10 +18,12 @@ const props = defineProps<{
     }>;
 }>();
 
+const isCreating = ref(false);
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Projetos',
-        href: projectsRoute().url,
+        href: projectsRoutes.index().url,
     },
 ];
 </script>
@@ -30,20 +35,32 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div
             class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
         >
-            <div class="space-y-4">
-                <div v-if="props.projects && props.projects.length > 0" class="grid gap-4">
+            <div class="mb-4">
+                <div v-if="!isCreating">
+                    <Button type="button" @click="isCreating = true">Adicionar projeto</Button>
+                </div>
+
+                <div v-else>
+                    <ProjectsCreate :form="projectsRoutes.store.form()" @go-back="isCreating = false" />
+                </div>
+            </div>
+            
+            <div class="space-y-4" v-if="!isCreating">
+                <div v-if="props.projects.length > 0" class="grid gap-4">
                     <div v-for="project in props.projects" :key="project.id" class="rounded border p-4">
                         <div class="flex items-start justify-between">
                             <h3 class="text-lg font-semibold">{{ project.title }}</h3>
                             <div class="text-sm text-gray-500">
-                                <span v-if="project.start_date">{{ project.start_date }}</span>
-                                <span v-if="project.start_date && project.end_date"> — </span>
-                                <span v-if="project.end_date">{{ project.end_date }}</span>
+                                <span>{{ project.start_date }} — {{ project.end_date }}</span>
                             </div>
                         </div>
-                        <p class="mt-2 text-sm text-gray-700" v-if="project.description">{{ project.description }}</p>
+
+                        <p class="mt-2 text-sm text-gray-700">{{ project.description }}</p>
+                        
                         <div class="mt-3">
-                            <a v-if="project.file" :href="`/storage/${project.file}`" target="_blank" rel="noopener noreferrer" class="text-sm text-indigo-600 hover:underline">Download / Visualizar arquivo</a>
+                            <a v-if="project.file" :href="`/storage/${project.file}`" target="_blank" rel="noopener noreferrer" class="text-sm text-indigo-600 hover:underline">
+                                Visualizar arquivo
+                            </a>
                             <span v-else class="text-sm text-gray-500">Nenhum arquivo anexado</span>
                         </div>
                     </div>

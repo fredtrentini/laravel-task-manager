@@ -3,23 +3,24 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\ProjectController;
 
 Route::get('/', function () {
     return Inertia::render('auth/Login', [
-        'canResetPassword' => Features::enabled(Features::resetPasswords()),
         'canRegister' => Features::enabled(Features::registration()),
-        'status' => null,
     ]);
-})->name('home');
+})
+->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('projects', function () {
-        return Inertia::render('Projects');
-    })->name('projects');
+    Route::prefix('projects')->group(function () {
+        Route::get('/', [ProjectController::class, 'index'])->name('projects.index');
+        Route::post('/', [ProjectController::class, 'store'])->name('projects.store');
+    });
 });
 
 require __DIR__.'/settings.php';

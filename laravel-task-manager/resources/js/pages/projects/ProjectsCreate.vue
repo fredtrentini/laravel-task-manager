@@ -1,0 +1,66 @@
+<script setup lang="ts">
+import { Form } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Spinner } from '@/components/ui/spinner';
+import { defineProps, defineEmits } from 'vue';
+
+const { form } = defineProps<{ form: Record<string, any> }>();
+const emit = defineEmits(['go-back']);
+
+function goBack() {
+    emit('go-back');
+}
+</script>
+
+<template>
+    <Form v-bind="form" v-slot="{ errors, processing }" @success="goBack" class="rounded border p-4">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-medium">Adicionar projeto</h2>
+        </div>
+
+        <div class="grid gap-3">
+            <div class="grid gap-1">
+                <Label for="title">Título</Label>
+                <Input id="title" name="title" type="text" required />
+                <InputError :message="errors.title" />
+            </div>
+
+            <div class="grid gap-1">
+                <Label for="description">Descrição</Label>
+                <textarea id="description" name="description" class="w-full rounded border p-2" rows="3" required></textarea>
+                <InputError :message="errors.description" />
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+                <div>
+                    <Label for="start_date">Data de início</Label>
+                    <Input id="start_date" name="start_date" type="date" />
+                    <InputError :message="errors.start_date" />
+                </div>
+                <div>
+                    <Label for="end_date">Data de término</Label>
+                    <Input id="end_date" name="end_date" type="date" />
+                    <InputError :message="errors.end_date" />
+                </div>
+            </div>
+
+            <div class="grid gap-1">
+                <Label for="file">Arquivo</Label>
+                <Input id="file" name="file" type="file" />
+                <InputError :message="errors.file" />
+            </div>
+
+            <div class="flex items-center gap-2">
+                <Button type="submit" :disabled="processing" >
+                    <Spinner v-if="processing" />
+                    Criar projeto
+                </Button>
+
+                <Button type="button" @click="goBack">Cancelar</Button>
+            </div>
+        </div>
+    </Form>
+</template>

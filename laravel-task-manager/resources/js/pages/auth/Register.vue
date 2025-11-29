@@ -84,7 +84,7 @@ import { Form, Head } from '@inertiajs/vue3';
 
                 <Button
                     type="submit"
-                    class="mt-2 w-full cursor-pointer"
+                    class="mt-2 w-full"
                     tabindex="5"
                     :disabled="processing"
                     data-test="register-user-button"

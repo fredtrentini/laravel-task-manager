@@ -2,19 +2,15 @@
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
-import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/vue3';
 
 defineProps<{
-    status?: string;
-    canResetPassword: boolean;
     canRegister: boolean;
 }>();
 </script>
@@ -25,13 +21,6 @@ defineProps<{
         description=""
     >
         <Head title="Log in" />
-
-        <div
-            v-if="status"
-            class="mb-4 text-center text-sm font-medium text-green-600"
-        >
-            {{ status }}
-        </div>
 
         <Form
             v-bind="store.form()"
@@ -73,7 +62,7 @@ defineProps<{
 
                 <Button
                     type="submit"
-                    class="mt-4 w-full cursor-pointer"
+                    class="mt-4 w-full"
                     :tabindex="4"
                     :disabled="processing"
                     data-test="login-button"
