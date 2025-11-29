@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('projects')->group(function () {
         Route::get('/', [ProjectController::class, 'index'])->name('projects.index');
         Route::post('/', [ProjectController::class, 'store'])->name('projects.store');
+        Route::put('/', [ProjectController::class, 'update'])->name('projects.update');
+        Route::delete('/', [ProjectController::class, 'destroy'])->name('projects.destroy');
     });
 });
 
