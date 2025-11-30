@@ -23,8 +23,8 @@ function handleDelete() {
     }
 }
 
-function manageTasks() {
-    router.get(`/projects/${project.id}/tasks`);
+function manageTasks(projectId: number) {
+    router.get(`/projects/${projectId}/tasks`);
 }
 </script>
 
@@ -53,7 +53,7 @@ function manageTasks() {
             <div class="flex gap-2 ml-auto">
                 <div class="flex gap-2">
                     <Button variant="outline" size="sm" @click="manageTasks(project.id)">
-                        Adicionar tarefas
+                        Gerenciar tarefas
                     </Button>
                 </div>
 

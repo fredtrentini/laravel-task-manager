@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -21,41 +22,24 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
         $user = $request->user();
-
-        $attributes = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
-        ]);
+        $attributes = $request->validated();
 
         if ($request->hasFile('file')) {
             $file_path = $request->file('file')->store('projects_files', 'public');
             $attributes['file'] = $file_path;
         }
 
-        $attributes['user_id'] = $user->id;
-
-        Project::query()->create($attributes);
+        $user->projects()->create($attributes);
 
         return redirect()->route('projects.index');
     }
 
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        $this->authorize('update', $project);
-
-        $attributes = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
-        ]);
+        $attributes = $request->validated();
 
         if ($request->hasFile('file')) {
             $file_path = $request->file('file')->store('projects_files', 'public');
@@ -67,10 +51,8 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
-    public function destroy(Request $request, Project $project)
+    public function destroy(ProjectRequest $request, Project $project)
     {
-        $this->authorize('delete', $project);
-
         $project->delete();
 
         return redirect()->route('projects.index');
