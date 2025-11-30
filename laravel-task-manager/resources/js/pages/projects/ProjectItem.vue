@@ -45,16 +45,18 @@ function handleDelete() {
                 <span v-else class="text-sm text-gray-500">Nenhum arquivo anexado</span>
             </div>
 
-            <div class="flex gap-2">
-                <Button variant="outline" size="sm" @click="handleUpdate">
-                    Atualizar
-                </Button>
-            </div>
+            <div class="flex gap-2 ml-auto">
+                <div class="flex gap-2">
+                    <Button variant="outline" size="sm" @click="handleUpdate">
+                        Atualizar
+                    </Button>
+                </div>
 
-            <div class="flex gap-2">
-                <Button variant="outline" size="sm" @click="handleDelete">
-                    Deletar
-                </Button>
+                <div class="flex gap-2">
+                    <Button variant="outline" size="sm" @click="handleDelete">
+                        Deletar
+                    </Button>
+                </div>
             </div>
         </div>
     </div>
