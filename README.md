@@ -42,7 +42,7 @@ Edite os dados do banco:
 
 ```sh
 DB_CONNECTION=mysql
-DB_HOST=mysql
+DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=laravel_task_manager
 DB_USERNAME=root
@@ -67,6 +67,34 @@ php artisan migrate
 composer run dev
 ```
 
+---
+
 ### Opção 2: execução via docker
 
+#### 1. Criar o arquivo `.env`
 
+```sh
+cp .env.example .env
+````
+
+Edite o arquivo `.env`
+
+```sh
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_task_manager
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+#### 2. Subir os containers
+
+```sh
+docker compose up -d --build
+```
+
+#### 3. Acessar o projeto
+
+* Laravel: [http://localhost:8000](http://localhost:8000)
+* Vite (hot reload): [http://localhost:5173](http://localhost:5173)
