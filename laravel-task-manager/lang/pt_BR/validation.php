@@ -240,5 +240,6 @@ return [
         'end_date' => 'data de término',
         'due_date' => 'data de vencimento',
         'file' => 'arquivo',
+        'priority' => 'prioridade',
     ],
 ];

@@ -4,6 +4,7 @@ import { formatDate, truncateText } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { defineProps, defineEmits } from 'vue';
 import priorityToLabelMap from '@/enums/TaskPriority';
+import TaskStatus from '@/enums/TaskStatus';
 
 const props = defineProps<{
     project: Project;
@@ -12,7 +13,7 @@ const props = defineProps<{
 
 const { project, task } = props;
 
-const emit = defineEmits(["task-edit", "task-deleted"]);
+const emit = defineEmits(["task-edit", "task-deleted", "update-task"]);
 
 function handleUpdate() {
     emit("task-edit", project.id, task.id);
@@ -22,6 +23,10 @@ function handleDelete() {
     if (confirm("Tem certeza que deseja deletar esta tarefa?")) {
         emit("task-deleted", project.id, task.id);
     }
+}
+
+function markAsDone() {
+    emit("update-task", project.id, task.id, { status: TaskStatus.COMPLETED });
 }
 
 function getBackgroundColorByStatus(status: number): string {
@@ -63,6 +68,10 @@ function getBackgroundColorByStatus(status: number): string {
 
             <div class="flex gap-2 ml-auto">
                 <div class="flex gap-2">
+                    <Button variant="outline" size="sm" @click="markAsDone" :disabled="task.status === TaskStatus.COMPLETED">
+                        Marcar como concluída
+                    </Button>
+
                     <Button variant="outline" size="sm" @click="handleUpdate">
                         Atualizar
                     </Button>

@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('/{project}/tasks')->group(function () {
             Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
             Route::post('/', [TaskController::class, 'store'])->name('tasks.store');
-            Route::put('{task}', [TaskController::class, 'update'])->name('tasks.update');
+            Route::patch('{task}', [TaskController::class, 'update'])->name('tasks.update');
             Route::delete('{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
         });
     });
