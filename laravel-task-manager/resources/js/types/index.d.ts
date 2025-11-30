@@ -48,4 +48,17 @@ export interface Project {
     user_id: number;
 }
 
+export interface Task {
+    id: number;
+    title: string;
+    description: string;
+    due_date: string;
+    priority: 1 | 2 | 3 | 4 | 5;
+    status: 1 | 2 | 3;
+    created_at: string;
+    updated_at: string;
+    project_id: number;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;
+

@@ -3,6 +3,7 @@ import type { Project } from '@/types';
 import { formatDate, truncateText } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { defineProps, defineEmits } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps<{
     project: Project;
@@ -20,6 +21,10 @@ function handleDelete() {
     if (confirm('Tem certeza que deseja deletar este projeto?')) {
         emit("project-deleted", project.id);
     }
+}
+
+function manageTasks() {
+    router.get(`/projects/${project.id}/tasks`);
 }
 </script>
 
@@ -46,6 +51,12 @@ function handleDelete() {
             </div>
 
             <div class="flex gap-2 ml-auto">
+                <div class="flex gap-2">
+                    <Button variant="outline" size="sm" @click="manageTasks(project.id)">
+                        Adicionar tarefas
+                    </Button>
+                </div>
+
                 <div class="flex gap-2">
                     <Button variant="outline" size="sm" @click="handleUpdate">
                         Atualizar
