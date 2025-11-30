@@ -106,3 +106,7 @@ O projeto possui alguns testes com pest, para executá-los use o seguinte comand
 ```sh
 php artisan test
 ```
+
+## DER da aplicação
+
+![DER da aplicação](der.png)
