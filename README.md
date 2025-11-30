@@ -98,3 +98,11 @@ docker compose up -d --build
 
 * Laravel: [http://localhost:8000](http://localhost:8000)
 * Vite (hot reload): [http://localhost:5173](http://localhost:5173)
+
+## Testes
+
+O projeto possui alguns testes com pest, para executá-los use o seguinte comando:
+
+```sh
+php artisan test
+```
