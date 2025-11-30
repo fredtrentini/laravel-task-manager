@@ -16,6 +16,7 @@ class Task extends Model
         'due_date',
         'priority',
         'status',
+        'file',
         'project_id',
     ];
 

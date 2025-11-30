@@ -238,6 +238,7 @@ return [
         'birth_date' => 'data de nascimento',
         'start_date' => 'data de início',
         'end_date' => 'data de término',
+        'due_date' => 'data de vencimento',
+        'file' => 'arquivo',
     ],
-
 ];

@@ -63,12 +63,12 @@ function goBack() {
             <div class="grid sm:grid-cols-2 gap-3">
                 <div>
                     <Label for="start_date">Data de início</Label>
-                    <Input v-model="form.start_date" id="start_date" name="start_date" type="date" />
+                    <Input v-model="form.start_date" id="start_date" name="start_date" type="date" required />
                     <InputError :message="errors.start_date" />
                 </div>
                 <div>
                     <Label for="end_date">Data de término</Label>
-                    <Input v-model="form.end_date" id="end_date" name="end_date" type="date" />
+                    <Input v-model="form.end_date" id="end_date" name="end_date" type="date" required />
                     <InputError :message="errors.end_date" />
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\ProjectFormRequest;
 use App\Models\Project;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function store(ProjectRequest $request)
+    public function store(ProjectFormRequest $request)
     {
         $user = $request->user();
         $attributes = $request->validated();
@@ -37,7 +37,7 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
-    public function update(ProjectRequest $request, Project $project)
+    public function update(ProjectFormRequest $request, Project $project)
     {
         $attributes = $request->validated();
 
@@ -51,7 +51,7 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
-    public function destroy(ProjectRequest $request, Project $project)
+    public function destroy(ProjectFormRequest $request, Project $project)
     {
         $project->delete();
 

@@ -55,6 +55,7 @@ export interface Task {
     due_date: string;
     priority: 1 | 2 | 3 | 4 | 5;
     status: 1 | 2 | 3;
+    file: string | null;
     created_at: string;
     updated_at: string;
     project_id: number;

@@ -4,18 +4,18 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectRequest extends FormRequest
+class TaskFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $project = $this->route('project') ?? null;
+        $task = $this->route('task') ?? null;
 
         if ($this->isMethod('PUT')) {
-            return $this->user()->can('update', $project);
+            return $this->user()->can('update', $task);
         }
 
         if ($this->isMethod('DELETE')) {
-            return $this->user()->can('delete', $project);
+            return $this->user()->can('delete', $task);
         }
 
         return true;
@@ -30,9 +30,14 @@ class ProjectRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048',
+            'due_date' => 'required|date',
+            'priority' => 'required|integer|between:1,5',
+            'file' => [
+                $this->isMethod('POST') ? 'required' : 'nullable',
+                'file',
+                'mimes:pdf',
+                'max:2048'
+            ],
         ];
     }
 }

@@ -38,7 +38,7 @@ function manageTasks(projectId: number) {
             </div>
         </div>
 
-        <p class="mt-2 text-sm text-gray-700">{{ truncateText(project.description, 120) }}</p>
+        <p class="mt-2 text-sm text-gray-700">{{ truncateText(project.description, 80) }}</p>
 
         <div class="flex items-start justify-between mt-3">
             <div>

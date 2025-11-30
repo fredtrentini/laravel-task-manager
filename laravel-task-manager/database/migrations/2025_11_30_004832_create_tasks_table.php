@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('due_date');
             $table->integer('priority');
             $table->integer('status');
+            $table->string('file')->nullable();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete()->after('id');
             $table->timestamps();
         });

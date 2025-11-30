@@ -6,6 +6,8 @@ import type { Task, Project, BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { computed, ref, watch } from 'vue';
+import TaskForm from './TaskForm.vue';
+import TaskItem from './TaskItem.vue';
 
 const props = defineProps<{
     project: Project;
@@ -43,13 +45,13 @@ watch(
     },
 );
 
-function handleTaskEdit(taskId: number) {
+function handleTaskEdit(projectId: number, taskId: number) {
     formState.value = "editing";
     taskIdToEdit.value = taskId;
 }
 
-function deleteTask(targetTask: Task) {
-    router.delete(`/projects/${project.id}/tasks/${targetTask.id}`, {
+function deleteTask(projectId: number, targetTask: Task) {
+    router.delete(`/projects/${projectId}/tasks/${targetTask.id}`, {
         onSuccess: () => {
             localTasks.value = localTasks.value.filter(
                 (task) => task.id !== targetTask.id
@@ -77,19 +79,29 @@ function resetFormState() {
             
             <div class="space-y-4">
                 <div v-if="localTasks.length > 0" class="grid gap-4">
-                    <!-- <TaskItem
+                    <TaskItem
                     v-for="task in localTasks"
                     :key="task.id"
+                    :project="project"
                     :task="task"
                     @task-edit="handleTaskEdit"
-                    @task-deleted="deleteTask(task)" /> -->
+                    @task-deleted="deleteTask(project.id, task)" />
                 </div>
 
                 <div v-else class="rounded border p-4 text-gray-600">Sem tarefas</div>
             </div>
         </div>
 
-        <!-- <TaskForm v-else-if="formState == 'creating'" :form="tasksRoutes.store.form()" @go-back="resetFormState" />
-        <TaskForm v-else :form="tasksRoutes.update.form({ id: taskIdToEdit })" :task="taskToEdit" @go-back="resetFormState" /> -->
+        <TaskForm v-else-if="formState == 'creating'"
+            :form="tasksRoutes.store.form({ project: project.id })"
+            :project="project"
+            @go-back="resetFormState"
+        />
+        <TaskForm v-else
+            :form="tasksRoutes.update.form({ project: project.id, task: taskIdToEdit })"
+            :project="project"
+            :task="taskToEdit"
+            @go-back="resetFormState"
+        />
     </AppLayout>
 </template>
